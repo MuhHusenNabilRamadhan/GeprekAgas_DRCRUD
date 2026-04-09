@@ -30,6 +30,8 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.txtNIM = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtNama = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -43,16 +45,34 @@
             // 
             // txtNIM
             // 
-            this.txtNIM.Location = new System.Drawing.Point(178, 36);
+            this.txtNIM.Location = new System.Drawing.Point(171, 33);
             this.txtNIM.Name = "txtNIM";
-            this.txtNIM.Size = new System.Drawing.Size(161, 22);
+            this.txtNIM.Size = new System.Drawing.Size(221, 22);
             this.txtNIM.TabIndex = 1;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(74, 69);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(44, 16);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Nama";
+            // 
+            // txtNama
+            // 
+            this.txtNama.Location = new System.Drawing.Point(171, 69);
+            this.txtNama.Name = "txtNama";
+            this.txtNama.Size = new System.Drawing.Size(221, 22);
+            this.txtNama.TabIndex = 3;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.txtNama);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.txtNIM);
             this.Controls.Add(this.label1);
             this.Name = "Form1";
@@ -66,6 +86,8 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtNIM;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtNama;
     }
 }
 
