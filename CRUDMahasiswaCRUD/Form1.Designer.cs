@@ -36,6 +36,9 @@
             this.cmbJK = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.dtpTanggalLahir = new System.Windows.Forms.DateTimePicker();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtAlamat = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -93,7 +96,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(77, 144);
+            this.label4.Location = new System.Drawing.Point(74, 150);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(90, 16);
             this.label4.TabIndex = 6;
@@ -107,11 +110,39 @@
             this.dtpTanggalLahir.Size = new System.Drawing.Size(121, 22);
             this.dtpTanggalLahir.TabIndex = 7;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(74, 195);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(49, 16);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "Alamat";
+            // 
+            // txtAlamat
+            // 
+            this.txtAlamat.Location = new System.Drawing.Point(191, 195);
+            this.txtAlamat.Multiline = true;
+            this.txtAlamat.Name = "txtAlamat";
+            this.txtAlamat.Size = new System.Drawing.Size(221, 73);
+            this.txtAlamat.TabIndex = 9;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(74, 289);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(0, 16);
+            this.label6.TabIndex = 10;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.txtAlamat);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.dtpTanggalLahir);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.cmbJK);
@@ -137,6 +168,9 @@
         private System.Windows.Forms.ComboBox cmbJK;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.DateTimePicker dtpTanggalLahir;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txtAlamat;
+        private System.Windows.Forms.Label label6;
     }
 }
 
