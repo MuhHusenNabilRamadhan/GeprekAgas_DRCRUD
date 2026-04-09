@@ -41,6 +41,13 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.txtKodeProdi = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -56,7 +63,7 @@
             // 
             this.txtNIM.Location = new System.Drawing.Point(191, 33);
             this.txtNIM.Name = "txtNIM";
-            this.txtNIM.Size = new System.Drawing.Size(221, 22);
+            this.txtNIM.Size = new System.Drawing.Size(247, 22);
             this.txtNIM.TabIndex = 1;
             // 
             // label2
@@ -72,7 +79,7 @@
             // 
             this.txtNama.Location = new System.Drawing.Point(191, 69);
             this.txtNama.Name = "txtNama";
-            this.txtNama.Size = new System.Drawing.Size(221, 22);
+            this.txtNama.Size = new System.Drawing.Size(247, 22);
             this.txtNama.TabIndex = 3;
             // 
             // label3
@@ -126,7 +133,7 @@
             this.txtAlamat.Location = new System.Drawing.Point(191, 195);
             this.txtAlamat.Multiline = true;
             this.txtAlamat.Name = "txtAlamat";
-            this.txtAlamat.Size = new System.Drawing.Size(221, 73);
+            this.txtAlamat.Size = new System.Drawing.Size(247, 73);
             this.txtAlamat.TabIndex = 9;
             // 
             // label6
@@ -150,14 +157,81 @@
             // 
             this.txtKodeProdi.Location = new System.Drawing.Point(191, 289);
             this.txtKodeProdi.Name = "txtKodeProdi";
-            this.txtKodeProdi.Size = new System.Drawing.Size(100, 22);
+            this.txtKodeProdi.Size = new System.Drawing.Size(153, 22);
             this.txtKodeProdi.TabIndex = 12;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(562, 36);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(134, 23);
+            this.button1.TabIndex = 13;
+            this.button1.Text = "Membuka Koneksi";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.btnConnect_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(562, 89);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(134, 23);
+            this.button2.TabIndex = 14;
+            this.button2.Text = "Menampilkan Data";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.btnLoad_Click);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(562, 143);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(134, 23);
+            this.button3.TabIndex = 15;
+            this.button3.Text = "Menambah Data";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.btnInsert_Click);
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(562, 192);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(134, 23);
+            this.button4.TabIndex = 16;
+            this.button4.Text = "Mengubah Data";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.btnUpdate_Click);
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(562, 245);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(134, 23);
+            this.button5.TabIndex = 17;
+            this.button5.Text = "Menghapus Data";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(77, 329);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersWidth = 51;
+            this.dataGridView1.RowTemplate.Height = 24;
+            this.dataGridView1.Size = new System.Drawing.Size(632, 109);
+            this.dataGridView1.TabIndex = 18;
+            this.dataGridView1.Click += new System.EventHandler(this.DataGridView1_CellClick);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.button5);
+            this.Controls.Add(this.button4);
+            this.Controls.Add(this.button3);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.txtKodeProdi);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
@@ -173,6 +247,7 @@
             this.Controls.Add(this.label1);
             this.Name = "Form1";
             this.Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -193,6 +268,12 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtKodeProdi;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }
 
