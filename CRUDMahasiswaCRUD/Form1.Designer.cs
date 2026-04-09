@@ -32,6 +32,8 @@
             this.txtNIM = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtNama = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.cmbJK = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label1
@@ -45,7 +47,7 @@
             // 
             // txtNIM
             // 
-            this.txtNIM.Location = new System.Drawing.Point(171, 33);
+            this.txtNIM.Location = new System.Drawing.Point(191, 33);
             this.txtNIM.Name = "txtNIM";
             this.txtNIM.Size = new System.Drawing.Size(221, 22);
             this.txtNIM.TabIndex = 1;
@@ -61,16 +63,38 @@
             // 
             // txtNama
             // 
-            this.txtNama.Location = new System.Drawing.Point(171, 69);
+            this.txtNama.Location = new System.Drawing.Point(191, 69);
             this.txtNama.Name = "txtNama";
             this.txtNama.Size = new System.Drawing.Size(221, 22);
             this.txtNama.TabIndex = 3;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(74, 106);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(90, 16);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Jenis Kelamin";
+            // 
+            // cmbJK
+            // 
+            this.cmbJK.FormattingEnabled = true;
+            this.cmbJK.Items.AddRange(new object[] {
+            "L",
+            "P"});
+            this.cmbJK.Location = new System.Drawing.Point(191, 106);
+            this.cmbJK.Name = "cmbJK";
+            this.cmbJK.Size = new System.Drawing.Size(121, 24);
+            this.cmbJK.TabIndex = 5;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.cmbJK);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.txtNama);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtNIM);
@@ -88,6 +112,8 @@
         private System.Windows.Forms.TextBox txtNIM;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtNama;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox cmbJK;
     }
 }
 
