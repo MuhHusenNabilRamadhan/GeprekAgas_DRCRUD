@@ -39,6 +39,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.txtAlamat = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtKodeProdi = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -135,11 +137,29 @@
             this.label6.Size = new System.Drawing.Size(0, 16);
             this.label6.TabIndex = 10;
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(77, 289);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(74, 16);
+            this.label7.TabIndex = 11;
+            this.label7.Text = "Kode Prodi";
+            // 
+            // txtKodeProdi
+            // 
+            this.txtKodeProdi.Location = new System.Drawing.Point(191, 289);
+            this.txtKodeProdi.Name = "txtKodeProdi";
+            this.txtKodeProdi.Size = new System.Drawing.Size(100, 22);
+            this.txtKodeProdi.TabIndex = 12;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.txtKodeProdi);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.txtAlamat);
             this.Controls.Add(this.label5);
@@ -171,6 +191,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtAlamat;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox txtKodeProdi;
     }
 }
 
