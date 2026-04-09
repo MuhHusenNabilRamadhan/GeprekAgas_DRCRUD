@@ -13,6 +13,10 @@ namespace CRUDMahasiswaCRUD
 {
     public partial class Form1: Form
     {
+        private readonly SqlConnection conn;
+        private readonly string connectionString =
+            "Data Source=DESKTOP-0FQM93C\\HUSENNABIL;Initial Catalog=DBAkademiADO;Integrated Security=True";
+
         public Form1()
         {
             InitializeComponent();
