@@ -22,6 +22,21 @@ namespace CRUDMahasiswaCRUD
             InitializeComponent();
             conn = new SqlConnection(connectionString);
         }
+        private void ConnectionDatabase()
+        {
+            try
+            {
+                if (conn.State == System.Data.ConnectionState.Closed)
+                {
+                    conn.Open();
+                }
+                MessageBox.Show("Koneksi Berhasil");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Koneksi gagal: " + ex.Message);
+            }
+        }
 
         private void btnConnect_Click(object sender, EventArgs e)
         {
