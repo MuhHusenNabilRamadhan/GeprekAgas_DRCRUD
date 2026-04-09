@@ -34,6 +34,8 @@
             this.txtNama = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.cmbJK = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.dtpTanggalLahir = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
             // label1
@@ -88,11 +90,30 @@
             this.cmbJK.Size = new System.Drawing.Size(121, 24);
             this.cmbJK.TabIndex = 5;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(77, 144);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(90, 16);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "Tanggal Lahir";
+            // 
+            // dtpTanggalLahir
+            // 
+            this.dtpTanggalLahir.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpTanggalLahir.Location = new System.Drawing.Point(191, 144);
+            this.dtpTanggalLahir.Name = "dtpTanggalLahir";
+            this.dtpTanggalLahir.Size = new System.Drawing.Size(121, 22);
+            this.dtpTanggalLahir.TabIndex = 7;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.dtpTanggalLahir);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.cmbJK);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtNama);
@@ -114,6 +135,8 @@
         private System.Windows.Forms.TextBox txtNama;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cmbJK;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.DateTimePicker dtpTanggalLahir;
     }
 }
 
