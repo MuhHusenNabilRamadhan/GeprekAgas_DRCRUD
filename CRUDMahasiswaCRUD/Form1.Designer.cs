@@ -42,7 +42,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.txtKodeProdi = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnLoad = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
@@ -170,15 +170,15 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.btnConnect_Click);
             // 
-            // button2
+            // btnLoad
             // 
-            this.button2.Location = new System.Drawing.Point(562, 89);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(134, 23);
-            this.button2.TabIndex = 14;
-            this.button2.Text = "Menampilkan Data";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.btnLoad_Click);
+            this.btnLoad.Location = new System.Drawing.Point(562, 89);
+            this.btnLoad.Name = "btnLoad";
+            this.btnLoad.Size = new System.Drawing.Size(134, 23);
+            this.btnLoad.TabIndex = 14;
+            this.btnLoad.Text = "Menampilkan Data";
+            this.btnLoad.UseVisualStyleBackColor = true;
+            this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
             // 
             // button3
             // 
@@ -230,7 +230,7 @@
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btnLoad);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.txtKodeProdi);
             this.Controls.Add(this.label7);
@@ -269,7 +269,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtKodeProdi;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnLoad;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
