@@ -140,37 +140,29 @@ namespace CRUDMahasiswaCRUD
         {
             try
             {
-                DialogResult resultConfirm = MessageBox.Show(
+                DialogResult dg = MessageBox.Show(
                     "Yakin ingin menghapus data?",
                     "Konfirmasi",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question);
 
-                if (resultConfirm == DialogResult.Yes)
+                if (dg == DialogResult.Yes)
                 {
-                    using (SqlConnection conn = new SqlConnection(connectionString))
-                    { 
-                        using (SqlCommand cmd = new SqlCommand("sp_DeleteMahasiswa", conn))
-                        {
-                            cmd.CommandType = CommandType.StoredProcedure;
-
-                            cmd.Parameters.Add("@NIM", SqlDbType.Char, 11).Value = txtNIM.Text;
-
-                            conn.Open();
-
-                            int rowsAffected = cmd.ExecuteNonQuery();
-                            if (rowsAffected < 0)
-                                MessageBox.Show("Data berhasil dihapus");
-                            else
-                                MessageBox.Show("Data tidak ditemukan");
-                        }
-                    }
-                    LoadData();
+                    dbLogic.DeleteMhs(txtNIM.Text);
+                    MessageBox.Show("Data Mahasiswa berhasil dihapus");
+                    Clearform();
+                    btnLoad.PerformClick();
                 }
+            }
+            catch (SqlException ex)
+            {
+                SimpanLog(ex.Message);
+                MessageBox.Show("SQL Error: " + ex.Message);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Terjadi kesalahan: " + ex.Message);
+                SimpanLog(ex.Message);
+                MessageBox.Show("General Error: " + ex.Message);
             }
         }
 
@@ -288,29 +280,19 @@ namespace CRUDMahasiswaCRUD
         {
             try
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    conn.Open();
-
-                    string query = @"
-                        IF OBJECT_ID('dbo.Mahasiswa_Backup') IS NOT NULL
-                        BEGIN
-                            DELETE FROM dbo.Mahasiswa;
-                            INSERT INTO dbo.Mahasiswa
-                            SELECT * FROM dbo.Mahasiswa_Backup;
-                        END";
-
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
-                    {
-                        cmd.ExecuteNonQuery();
-                    }
-                }
+                dbLogic.ResetData();
                 MessageBox.Show("Data berhasil direset");
-                LoadData();
+                LoadData(); 
+            }
+            catch (SqlException ex)
+            {
+                SimpanLog(ex.Message);
+                MessageBox.Show("SQL Error: " + ex.Message);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Reset gagal: " + ex.Message);
+                SimpanLog(ex.Message);
+                MessageBox.Show("General Error: " + ex.Message);
             }
         }
 
@@ -318,24 +300,28 @@ namespace CRUDMahasiswaCRUD
         {
             try
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
+               dbLogic.testInject(txtNIM.Text);
+
+                LoadData();
+            }
+            catch (SqlException ex)
+            {
+               if(ex.Message.Contains("safe"))
+               {
+                    SimpanLog(ex.Message);
+                    MessageBox.Show("SQL Error: Unsafe UPDATE opearation not allowed");
+
+               }
+                else
                 {
-                    string query =
-                        "UPDATE Mahasiswa SET Nama= '" + txtNama.Text + "'WHERE NIM= '" + txtNIM.Text + "'";
-
-                    SqlCommand cmd = new SqlCommand(query, conn);
-
-                    conn.Open();
-
-                    cmd.ExecuteNonQuery();
-
-                    MessageBox.Show("Update berhasil");
-
+                    SimpanLog(ex.Message);
+                    MessageBox.Show("SQL Error: " + ex.Message);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                SimpanLog(ex.Message);
+                MessageBox.Show("General Error: " + ex.Message);
             }
         }
 
