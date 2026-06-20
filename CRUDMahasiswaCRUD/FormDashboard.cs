@@ -118,22 +118,36 @@ namespace CRUDMahasiswaCRUD
 
         private void btnLoad_Click(object sender, EventArgs e)
         {
-
+            button = 1;
+            LoadDataChart();
         }
 
         private void btnReset_Click(object sender, EventArgs e)
         {
-
+            button = 0;
+            LoadDataChart();
         }
 
         private void btnDataMhs_Click(object sender, EventArgs e)
         {
-
+            DataMahasiwa frm1 = new DataMahasiwa();
+            frm1.Show();
+            this.Hide();
         }
 
-        private void cmbType_SelectedIndexChanged(object sender, EventArgs e)
+        private void cmbTipe_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (isInitializing)
+                return;
 
+            if(button == 1)
+            {
+
+            }
+            else
+            {
+                LoadDataChart();
+            }
         }
 
         private void dtpTanggalMasuk(object sender, EventArgs e)
