@@ -246,6 +246,5 @@ namespace CRUDMahasiswaCRUD
             da.Fill(dtMahasiswa);
             return dtMahasiswa;
         }
-
     }
 }
