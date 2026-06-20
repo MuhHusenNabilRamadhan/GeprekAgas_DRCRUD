@@ -14,6 +14,8 @@ namespace CRUDMahasiswaCRUD
 {
     public partial class Form1 : Form
     {
+        DAL dbLogic = new DAL();
+
         private BindingSource bindingSource = new BindingSource();
         private DataTable dtMahasiswa = new DataTable();
         private readonly SqlConnection conn;
@@ -208,12 +210,14 @@ namespace CRUDMahasiswaCRUD
 
         private void Clearform()
         {
+            txtNIM.Enabled = true;
             txtNIM.Clear();
             txtNama.Clear();
             cmbJK.SelectedIndex = -1;
             txtAlamat.Clear();
             txtKodeProdi.Clear();
             dtpTanggalLahir.Value = DateTime.Now;
+            fotoMhs.Image = null;
             txtNIM.Focus();
         }
 
@@ -354,51 +358,48 @@ namespace CRUDMahasiswaCRUD
         {
             try
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    using (SqlCommand cmd = new SqlCommand("sp_CountMahasiswa", conn))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
+                int total = (dbLogic.CountMhs().Equals(DBNull.Value)) ? 0 : dbLogic.CountMhs();
 
-                        SqlParameter outputParam = new SqlParameter("@Total", SqlDbType.Int);
-                        outputParam.Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add(outputParam);
+                lblCountMhs.Text = "Total Mahasiswa: " + total.ToString();
 
-                        conn.Open();
-                        cmd.ExecuteNonQuery();
-
-                        lblTotal.Text = "Total Mahasiswa: " + outputParam.Value.ToString();
-                    }
-                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Gagal menghitung total: " + ex.Message);
+                MessageBox.Show("Gagal load total: " + ex.Message);
             }
         }
 
         private void LoadData()
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            try
             {
-                using (SqlCommand cmd = new SqlCommand("sp_GetMahasiswa", conn))
+                bindingSource1.DataSource = dbLogic.GetMhs();
+                dataGridView1.DataSource = bindingSource1;
+                DataGridViewImageColumn fotoColumn = (DataGridViewImageColumn)dataGridView1.Columns["Foto"];
+                fotoColumn.ImageLayout = DataGridViewImageCellLayout.Stretch;
+
+                HitungTotal();
+                foreach(DataGridViewColumn col in dataGridView1.Columns)
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
+                    Console.WriteLine("Name: " + col.Name + " | DataPropertyName: " + col.DataPropertyName);
 
-                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
-                    {
-                        dtMahasiswa = new DataTable();
-                        da.Fill(dtMahasiswa);
-
-                        bindingSource.DataSource = dtMahasiswa;
-                        dataGridView1.DataSource = bindingSource;
-
-                        BindControls();
-                    }
                 }
-            }
 
-            HitungTotal(); //
+                dataGridView1.Enabled = true;
+                btnImpDb.Enabled = false;
+                btnInsert.Enabled = true;
+                btnUpdate.Enabled = true;
+                btnDelete.Enabled = true;
+                btnCari.Enabled = true;
+                btnLoad.Enabled = true;
+                btnReset.Enabled = true;
+                btnTestInjection.Enabled = true;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Gagal load data: " + ex.Message);
+            }
         }
 
         private void label8_Click(object sender, EventArgs e)
@@ -406,21 +407,9 @@ namespace CRUDMahasiswaCRUD
 
         }
 
-        private void SimpanLog (string pesan)
+        private void SimpanLog (string message)
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                string query = @"INSERT INTO LogError
-                        VALUES(GETDATE(), @pesan)";
-
-                using (SqlCommand cmd = new SqlCommand(query, conn))
-                {
-                    cmd.Parameters.AddWithValue("@pesan", pesan);
-
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
-                }
-            }
+           dbLogic.InsertLog(message);
         }
 
         private void btnCetak_Click(object sender, EventArgs e)
@@ -440,11 +429,6 @@ namespace CRUDMahasiswaCRUD
 
         }
 
-        private void btnDatabase_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnRekapData_Click(object sender, EventArgs e)
         {
 
@@ -456,6 +440,11 @@ namespace CRUDMahasiswaCRUD
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnImportDatabase_Click(object sender, EventArgs e)
         {
 
         }
