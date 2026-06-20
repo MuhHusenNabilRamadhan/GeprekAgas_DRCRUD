@@ -1,0 +1,100 @@
+﻿using System;
+using System.Data;
+using System.Data.SqlClient;
+using System.Windows.Forms;
+
+namespace CRUDMahasiswaCRUD
+{
+    public partial class Form2cs : Form
+    {
+        static string connectionString = "Data Source=DESKTOP-0FQM93C\\HUSENNABIL; Initial Catalog=DBAkademiADO;Integrated Security=True";
+
+        SqlConnection conn = new SqlConnection(connectionString);
+        SqlDataAdapter da;
+        DataTable dtMahasiswa;
+        DataTable dtProdi;
+
+        public Form2cs()
+        {
+            InitializeComponent();
+        }
+
+        private void btnLoad_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (conn.State == ConnectionState.Closed)
+                {
+                    conn.Open();
+                }
+
+                SqlCommand cmd = new SqlCommand("sp_Report", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@inProdi", SqlDbType.VarChar, 50).Value = cmbProdi.SelectedValue;
+                cmd.Parameters.Add("@inTglMsuk", SqlDbType.VarChar, 4).Value = dtpTanggalMasuk.Value.Year.ToString();
+
+                da = new SqlDataAdapter(cmd);
+                dtMahasiswa = new DataTable();
+                da.Fill(dtMahasiswa);
+
+                dataGridView1.DataSource = dtMahasiswa;
+
+                if (dtMahasiswa.Rows.Count > 0)
+                {
+                    btnCetak.Enabled = true;
+                }
+                else
+                {
+                    btnCetak.Enabled = false;
+                    MessageBox.Show("Data tidak ditemukan");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Gagal load data: " + ex.Message);
+            }
+        }
+
+        private void btnCetak_Click(object sender, EventArgs e)
+        {
+            // PERBAIKAN FATAL: Membuka Form3 dan melempar datanya!
+            Form3 frm3 = new Form3(cmbProdi.SelectedValue.ToString(), dtpTanggalMasuk.Value);
+            frm3.Show();
+            this.Hide();
+        }
+
+        private void Form2cs_Load(object sender, EventArgs e)
+        {
+            dtpTanggalMasuk.Format = DateTimePickerFormat.Custom;
+            dtpTanggalMasuk.CustomFormat = "yyyy";
+            dtpTanggalMasuk.ShowUpDown = true;
+            dtpTanggalMasuk.MinDate = new DateTime(2000, 1, 1);
+            dtpTanggalMasuk.MaxDate = DateTime.Now;
+
+            cmbProdi.DropDownStyle = ComboBoxStyle.DropDownList;
+            btnCetak.Enabled = false;
+
+            try
+            {
+                if (conn.State == ConnectionState.Closed)
+                {
+                    conn.Open();
+                }
+
+                SqlCommand cmd = new SqlCommand("select NamaProdi from ProgramStudi", conn);
+                cmd.CommandType = CommandType.Text;
+                dtProdi = new DataTable();
+                da = new SqlDataAdapter(cmd);
+                da.Fill(dtProdi);
+                cmbProdi.DataSource = dtProdi;
+                cmbProdi.DisplayMember = "namaprodi";
+                cmbProdi.ValueMember = "namaprodi";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Gagal load data: " + ex.Message);
+            }
+        }
+    }
+}
