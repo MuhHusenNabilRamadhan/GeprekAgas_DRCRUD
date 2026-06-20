@@ -31,5 +31,10 @@ namespace CRUDMahasiswaCRUD
         {
 
         }
+
+        private void cmbType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
