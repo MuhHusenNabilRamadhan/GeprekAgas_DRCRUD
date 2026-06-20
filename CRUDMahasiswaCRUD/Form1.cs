@@ -429,5 +429,35 @@ namespace CRUDMahasiswaCRUD
             fm3.Show();
             this.Hide();
         }
+
+        private void btnCari_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnImportExcel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnDatabase_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnRekapData_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnUploadGambar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
