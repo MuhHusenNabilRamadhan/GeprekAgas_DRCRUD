@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Linq.Expressions;
+using System.IO;
 
 namespace CRUDMahasiswaCRUD
 {
@@ -45,19 +46,23 @@ namespace CRUDMahasiswaCRUD
 
         private void btnConnect_Click(object sender, EventArgs e)
         {
-            ConnectionDatabase();
-
             try
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (SqlConnection conn = new SqlConnection(dbLogic.GetConnectionString()))
                 {
                     conn.Open();
                     MessageBox.Show("Koneksi berhasil!");
                 }
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Terjadi kesalahan: " + ex.Message);
+                SimpanLog(ex.Message);
+                MessageBox.Show("SQL Error: " + ex.Message);
+            }
+            catch(Exception ex)
+            {
+                SimpanLog(ex.Message);
+                MessageBox.Show("General Error: " + ex.Message);
             }
         }
 
@@ -67,86 +72,67 @@ namespace CRUDMahasiswaCRUD
         }
 
         private void btnInsert_Click(object sender, EventArgs e)
-{
-            SqlConnection conn = new SqlConnection(connectionString);
-            conn.Open();
-            SqlTransaction trans = conn.BeginTransaction();
-
+        {
             try
             {
-                SqlCommand cmd = new SqlCommand("sp_InsertMahasiswa", conn, trans);
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                cmd.Parameters.AddWithValue("@NIM", txtNIM.Text);
-                cmd.Parameters.AddWithValue("@Nama", txtNama.Text);
-                cmd.Parameters.AddWithValue("@JenisKelamin", cmbJK.Text);
-                cmd.Parameters.AddWithValue("@TanggalLahir", dtpTanggalLahir.Value.Date);
-                cmd.Parameters.AddWithValue("@Alamat", txtAlamat.Text);
-                cmd.Parameters.AddWithValue("@KodeProdi", txtKodeProdi.Text);
-                cmd.Parameters.AddWithValue("@TanggalDaftar", DateTime.Now);
-
-                cmd.ExecuteNonQuery();
-
-                // Sengaja dibuat salah/error untuk demonstrasi transaksi (LogAktivitasSalah)
-                SqlCommand cmdLog = new SqlCommand(
-                    "INSERT INTO LogAktivitasSalah (aktivitas, waktu) VALUES (@aktivitas, GETDATE())", 
-                    conn, 
-                    trans
-                );
-
-                 cmdLog.Parameters.AddWithValue("@aktivitas", "INSERT MAHASISWA " + txtNIM.Text);
-                 cmdLog.ExecuteNonQuery();
-
-                 trans.Commit();
-                 MessageBox.Show("Data berhasil ditambahkan");
-                 LoadData();
-                }
-                catch (SqlException ex)
+                byte[] ConvertImageToBytes(PictureBox pb)
                 {
-                    trans.Rollback();
-                    SimpanLog("ROLLBACK INSERT: " + ex.Message);
-                    MessageBox.Show(ex.Message);
+                    using(MemoryStream ms = new MemoryStream())
+                    {
+                        pb.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                        return ms.ToArray();
+                    }
                 }
-                catch (Exception ex)
-                {
-                    trans.Rollback();
-                    SimpanLog("GENERAL ERROR: " + ex.Message);
-                    MessageBox.Show(ex.Message);
-                }
-                finally
-                {
-                    conn.Close();
-                }
+
+                byte[] imgBytes = ConvertImageToBytes(fotoMhs);
+                dbLogic.InsertMhs(txtNIM.Text, txtNama.Text, txtAlamat.Text, cmbJK.Text, dtpTanggalLahir.Value.Date, txtKodeProdi.Text, imgBytes);
+                MessageBox.Show("Data berhasil disimpan");
+                Clearform();
+                LoadData();
             }
+            catch (SqlException ex)
+            {
+
+                SimpanLog("ROLLBACK INSERT: " + ex.Message);
+                MessageBox.Show("SQL Error: "ex.Message);
+            }
+            catch (Exception ex)
+            {
+
+                SimpanLog("GENERAL ERROR: " + ex.Message);
+                MessageBox.Show("General Error: "ex.Message);
+            }
+        }
+            
+        
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             try
             {
-                if (conn.State == System.Data.ConnectionState.Closed)
+                byte[] ConvertImageToBytes(PictureBox pb)
                 {
-                    conn.Open();
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        pb.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                        return ms.ToArray();
+                    }
                 }
-                using (SqlCommand cmd = new SqlCommand("sp_UpdateMahasiswa", conn))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-
-                    cmd.Parameters.AddWithValue("@NIM", txtNIM.Text);
-                    cmd.Parameters.AddWithValue("@Nama", txtNama.Text);
-                    cmd.Parameters.AddWithValue("@JenisKelamin", cmbJK.Text);
-                    cmd.Parameters.AddWithValue("@TanggalLahir", dtpTanggalLahir.Value.Date);
-                    cmd.Parameters.AddWithValue("@Alamat", txtAlamat.Text);
-                    cmd.Parameters.AddWithValue("@KodeProdi", txtKodeProdi.Text);
-
-                    cmd.ExecuteNonQuery();
-
-                }
-                MessageBox.Show("Data berhasil diupdate");
-                LoadData(); 
+                byte[] imgBytes = ConvertImageToBytes(fotoMhs);
+                dbLogic.UpdateMhs(txtNIM.Text, txtNama.Text, txtAlamat.Text, cmbJK.Text, dtpTanggalLahir.Value.Date, txtKodeProdi.Text, imgBytes);
+                MessageBox.Show("Data berhasil berhasil diubah");
+                Clearform();
+                btnLoad.PerformClick();
+            }
+            catch (SqlException ex)
+            {
+                SimpanLog(ex.Message);
+                MessageBox.Show("SQL Error: " + ex.Message);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Terjadi kesalahan: " + ex.Message);
+                SimpanLog(ex.Message);
+                MessageBox.Show("General Error: " + ex.Message);
             }
         }
 
